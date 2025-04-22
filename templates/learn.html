@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card p-4 shadow-sm">
+            <h2 class="mb-3">{{ lesson.title }}</h2>
+            <p class="fs-5">{{ lesson.content }}</p>
+            <div class="d-flex justify-content-between mt-4">
+                {% if lesson.id > 1 %}
+                <a href="{{ url_for('learn', lesson_id=lesson.id - 1) }}" class="btn btn-secondary">Back</a>
+                {% else %}
+                <span></span>
+                {% endif %}
+                {% if lesson.id < total_lessons %} <a href="{{ url_for('learn', lesson_id=next_id) }}"
+                    class="btn btn-primary">Next</a>
+                    {% else %}
+                    <a href="{{ url_for('quiz', question_id=1) }}" class="btn btn-success">Start Quiz</a>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
