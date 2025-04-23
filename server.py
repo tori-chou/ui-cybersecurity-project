@@ -23,16 +23,22 @@ def learn(lesson_id):
     else:
         return redirect(url_for('quiz', question_id=1))
 
-# TODO
 @app.route('/quiz/<int:question_id>', methods=['GET', 'POST'])
 def quiz(question_id):
+    if 'answers' not in session:
+        session['answers'] = {}
+    
+    answer = None
+
     if request.method == 'POST':
         answer = request.form.get('answer')
         session['answers'][str(question_id)] = answer
 
     if 1 <= question_id <= len(quiz_questions):
         question = quiz_questions[question_id - 1]
-        return render_template('quiz.html', question=question, next_id=question_id + 1)
+        if not answer:
+            answer = session['answers'].get(str(question_id))
+        return render_template('quiz.html', question=question, next_id=question_id + 1, total_questions=len(quiz_questions), answer=answer)
     else:
         return redirect(url_for('results'))
 

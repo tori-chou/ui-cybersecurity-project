@@ -70,30 +70,35 @@ quiz_questions = [
     {
         "id": 1,
         "question": "Is this phishing?",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Example_bank_phishing_email.svg/1200px-Example_bank_phishing_email.svg.png",
         "options": ["Yes", "No"],
         "answer": "Yes"
     },
     {
         "id": 2,
         "question": "Is this phishing?",
-        "options": ["Yes", "No"],
-        "answer": "No"
-    },
-    {
-        "id": 3,
-        "question": "Is this phishing?",
+        "image": "https://timely-benefit-e63d540317.media.strapiapp.com/Picture_10_Phishing_Scenario_Example_Citibank_Suspicious_Activity_Scam_d71e22ec08.png",
         "options": ["Yes", "No"],
         "answer": "Yes"
     },
     {
+        "id": 3,
+        "question": "Is this phishing?",
+        "image": "https://miro.medium.com/v2/resize:fit:1400/1*GDyWzrS3ZjmUfmsAKdtmDQ.png",
+        "options": ["Yes", "No"],
+        "answer": "No"
+    },
+    {
         "id": 4,
         "question": "Is this phishing?",
+        "image": "https://cdn.abcotvs.com/dip/images/11371439_122221-ktrk-scam-text-tn-img.jpg",
         "options": ["Yes", "No"],
         "answer": "Yes"
     },
     {
         "id": 5,
         "question": "Is this phishing?",
+        "image": "https://help.id.me/hc/article_attachments/7655625576087",
         "options": ["Yes", "No"],
         "answer": "No"
     },
