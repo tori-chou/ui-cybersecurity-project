@@ -1,5 +1,39 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h2 class="mb-4">Quiz Results</h2>
+        <h4 class="mb-4 text-success">You scored {{ score }} out of {{ total }}</h4>
 
+        <div class="list-group">
+            {% for i in range(questions|length) %}
+                {% set question_number = i + 1 %}
+                {% set q = questions[i] %}
+                {% set user_answer = answers[question_number|string] %}
+                <div class="list-group-item">
+                    <h5>Q{{ question_number }}: {{ q.question }}</h5>
+                    <p>
+                        Your answer:
+                        {% if user_answer == q.answer %}
+                            <span class="text-success"><strong>{{ user_answer }}</strong> ✅</span>
+                        {% elif user_answer %}
+                            <span class="text-danger"><strong>{{ user_answer }}</strong> ❌</span>
+                        {% else %}
+                            <span class="text-muted">No answer</span>
+                        {% endif %}
+                    </p>
+                    {% if user_answer != q.answer %}
+                        <p>Correct answer: <strong>{{ q.answer }}</strong></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between">
+            <a href="{{ url_for('home') }}" class="btn btn-secondary">Return Home</a>
+            <a href="{{ url_for('quiz', question_id=1) }}" class="btn btn-primary">Retake Quiz</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -27,31 +27,38 @@ def learn(lesson_id):
 def quiz(question_id):
     if 'answers' not in session:
         session['answers'] = {}
-    
+
     answer = None
 
     if request.method == 'POST':
         answer = request.form.get('answer')
-        session['answers'][str(question_id)] = answer
+        answers = session.get('answers', {})
+        answers[str(question_id)] = answer
+        session['answers'] = answers  # <-- triggers session update
 
     if 1 <= question_id <= len(quiz_questions):
         question = quiz_questions[question_id - 1]
         if not answer:
-            answer = session['answers'].get(str(question_id))
+            answer = session.get('answers', {}).get(str(question_id))
         return render_template('quiz.html', question=question, next_id=question_id + 1, total_questions=len(quiz_questions), answer=answer)
     else:
         return redirect(url_for('results'))
 
-# TODO
+
 @app.route('/results')
 def results():
     answers = session.get('answers', {})
     score = 0
     for idx, q in enumerate(quiz_questions):
-        correct = q['answer']
-        if answers.get(str(idx + 1)) == correct:
+        if answers.get(str(idx + 1)) == q['answer']:
             score += 1
-    return render_template('results.html', score=score, total=len(quiz_questions), answers=answers, questions=quiz_questions)
+    return render_template(
+        'results.html',
+        score=score,
+        total=len(quiz_questions),
+        answers=answers,
+        questions=quiz_questions
+    )
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
