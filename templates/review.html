@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card p-4 shadow-sm">
+        <h2 class="mb-4">Review Incorrect Questions</h2>
+
+        {% if incorrect_questions %}
+            <div class="list-group">
+                {% for item in incorrect_questions %}
+                    <div class="list-group-item">
+                        <h5>Q{{ item.question_number }}: {{ item.question }}</h5>
+                        <p>Your answer: 
+                            {% if item.your_answer %}
+                                <span class="text-danger"><strong>{{ item.your_answer }}</strong></span>
+                            {% else %}
+                                <span class="text-muted">No answer</span>
+                            {% endif %}
+                        </p>
+                        <p>Correct answer: <strong>{{ item.correct_answer }}</strong></p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-success">All questions were answered correctly.</p>
+        {% endif %}
+
+        <div class="mt-4">
+            <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

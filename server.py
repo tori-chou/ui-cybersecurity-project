@@ -60,5 +60,20 @@ def results():
         questions=quiz_questions
     )
 
+@app.route('/review')
+def review():
+    answers = session.get('answers', {})
+    incorrect = []
+    for idx, q in enumerate(quiz_questions):
+        q_num = str(idx + 1)
+        if answers.get(q_num) != q['answer']:
+            incorrect.append({
+                'question_number': q_num,
+                'question': q['question'],
+                'your_answer': answers.get(q_num),
+                'correct_answer': q['answer']
+            })
+    return render_template('review.html', incorrect_questions=incorrect)
+    
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
