@@ -13,11 +13,14 @@ def home():
     session['lesson_views'] = {}
     return render_template('home.html')
 
-
 @app.route('/learn/<int:lesson_id>')
 def learn(lesson_id):
     if 1 <= lesson_id <= len(lessons):
-        session['lesson_views'][str(lesson_id)] = datetime.now().isoformat()
+        try:
+            session['lesson_views'][str(lesson_id)] = datetime.now().isoformat()
+        except:
+            session['lesson_views'] = {}
+            session['lesson_views'][str(lesson_id)] = datetime.now().isoformat()
         lesson = lessons[lesson_id - 1]
         return render_template('learn.html', lesson=lesson, next_id=lesson_id + 1, total_lessons=len(lessons))
     else:
