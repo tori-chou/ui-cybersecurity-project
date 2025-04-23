@@ -8,7 +8,6 @@ lessons = [
     {
         "id": 2, 
         "title": "Learn how to spot phishing", 
-        "image": "https://www.ncsc.gov.uk/images/library/Phishing-promo-panel.jpg?mpwidth=545&mlwidth=737&twidth=912&dwidth=635&dpr=2.625&width=412",
         "content": ""
     },
     {
@@ -38,13 +37,13 @@ lessons = [
     {
         "id": 7, 
         "title": "5. Uses poor spelling/grammar", 
-        "image": "",
+        "image": "https://truecaller-web-cms.pages.dev/tc-main/OTM4ZGEyNmEtYmRmMS00ZjY5LWFlMmQtMGZiZDQ3MWE3MWFm_73d49237-c989-43b6-a044-dbcb7171c920_spam_example_truecaller_spelling_mistake.png?auto=compress,format&rect=0,0,1394,886&w=1394&h=886",
         "content": "Attackers may deliberately use grammatical errors to weed out less cautious users, who make easier targets."
     },
     {
         "id": 8, 
         "title": "6. Incites panic, seemingly urgent", 
-        "image": "",
+        "image": "https://www.terranovasecurity.com/sites/default/files/2024-02/phishing_email_example_business_account.png",
         "content": "The aim is to make recipients feel as if they’re missing out on an urgent offer or reward, and are more likely to be less cautious."
     },
     {
