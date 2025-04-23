@@ -43,13 +43,13 @@
     }
 </style>
 
-<div class="results-container">
-    <div class="results-score">You got {{ score }}/{{ total }} correct!</div>
+<div class="results-modern">
+    <div class="score">You got {{ score }}/{{ total }} correct!</div>
 
     <a href="{{ url_for('review') }}" class="btn btn-modern">Review Incorrect Questions</a>
-
-    <a href="{{ url_for('home') }}" class="btn btn-modern">Back To Home</a>
+    <a href="{{ url_for('home') }}"   class="btn btn-modern">Back To Home</a>
 </div>
+
 
 <div class="bottom-left">Time’s Up</div>
 {% endblock %}

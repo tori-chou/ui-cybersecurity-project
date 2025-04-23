@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <div class="container text-center mt-5">
-        <h1 class="display-4 mb-3">Cybersecure</h1>
-        <p class="lead mb-4">Learn how to spot and stop phishing attacks</p>
-        <a href="{{ url_for('learn', lesson_id=1) }}" class="btn btn-primary btn-lg">Start Learning</a>
-    </div>
+<section class="hero">
+    <h1 class="display-4 fw-semibold mb-3">Cybersecure</h1>
+    <p class="lead mb-4">Learn how to spot and stop phishing attacks</p>
+    <a href="{{ url_for('learn', lesson_id=1) }}" class="btn btn-primary btn-lg px-5">Start&nbsp;Learning</a>
+</section>
 {% endblock %}
