@@ -1,0 +1,21 @@
+.cropped-container-2 {
+  width: 510px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.cropped-image-2 {
+  width: 700px;
+  object-fit: cover;
+  object-position: left;
+}
+
+.cropped-container-5 {
+  height: 360px;
+  overflow: hidden;
+}
+
+.cropped-image-5 {
+  width: 100%;
+  margin-top: 100px;
+}
