@@ -98,7 +98,7 @@ quiz_questions = [
         "question": "Is this phishing?",
         "image": "https://miro.medium.com/v2/resize:fit:1400/1*GDyWzrS3ZjmUfmsAKdtmDQ.png",
         "options": ["Yes", "No"],
-        "answer": "No"
+        "answer": "Yes"
     },
     {
         "id": 4,
@@ -112,7 +112,7 @@ quiz_questions = [
         "question": "Is this phishing?",
         "image": "https://help.id.me/hc/article_attachments/7655625576087",
         "options": ["Yes", "No"],
-        "answer": "No"
+        "answer": "Yes"
     },
     {
         "id": 6,
