@@ -7,15 +7,18 @@
         {% if question.image %}
         {% if question.id == 2 %}
         <div class="text-center mb-3 cropped-container-2">
-            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow cropped-image-2" style="height:400px; width:auto;">
+            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow cropped-image-2"
+                style="height:400px; width:auto;">
         </div>
         {% elif question.id == 5 %}
         <div class="text-center mb-3 cropped-container-5">
-            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow cropped-image-5" style="height:600px; width:auto;">
+            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow cropped-image-5"
+                style="height:600px; width:auto;">
         </div>
         {% else %}
         <div class="text-center mb-3">
-            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow" style="height:400px; width:auto;">
+            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow"
+                style="height:400px; width:auto;">
         </div>
         {% endif %}
         {% endif %}
@@ -53,21 +56,36 @@
         <div class="mt-3 text-muted">
             Time remaining: <span id="timer">30</span> seconds
         </div>
+        <div id="timeoutModal" class="modal-overlay">
+            <div class="modal-box">
+                <h3>⏰ Time’s up!</h3>
+                <p>Please try to answer faster next time!</p>
+                <button onclick="closeModal()" class="btn btn-primary mt-3">OK</button>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
     let time = 30;
+    let timerExpired = false; 
     const timerElement = document.getElementById("timer");
+
     const countdown = setInterval(() => {
-        if (time <= 0) {
+        if (time <= 0 && !timerExpired) {
+            timerExpired = true;  
             clearInterval(countdown);
-            alert("Time's up!");
-        } else {
+            document.getElementById("timeoutModal").style.display = "flex";
+        } else if (!timerExpired) {
             time--;
             timerElement.innerText = time;
         }
     }, 1000);
+
+    function closeModal() {
+        document.getElementById("timeoutModal").style.display = "none";
+    }
 </script>
 
 {% endblock %}

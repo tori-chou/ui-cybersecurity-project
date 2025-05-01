@@ -77,6 +77,21 @@ def review():
                 'correct_answer': q['answer']
             })
     return render_template('review.html', incorrect_questions=incorrect)
+
+@app.route('/log_timeout', methods=['POST'])
+def log_timeout():
+    data = request.get_json()
+    question_id = data.get('question_id')
+
+    if 'timeouts' not in session:
+        session['timeouts'] = []
+
+    if question_id not in session['timeouts']:
+        session['timeouts'].append(question_id)
+        session.modified = True
+
+    print(f"⚠️ Timeout logged for Q{question_id}")
+    return jsonify({'status': 'ok'})
     
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
