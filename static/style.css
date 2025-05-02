@@ -217,3 +217,91 @@ section.hero .btn-primary:hover{
   border-color: var(--clr-primary);
   box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25); /* matches your theme */
 }
+
+.quiz-option-button,
+.btn-success.quiz-option-button,
+.btn-danger.quiz-option-button {
+  background-color: #4b5563; /* slate-700 */
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.25rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  width: 100%;
+  max-width: 300px;
+  transition: background-color 0.2s ease;
+  text-align: center;
+}
+
+.btn-success.quiz-option-button {
+  background-color: #6fcf97 !important; /* green */
+  color: white;
+}
+
+.btn-danger.quiz-option-button {
+  background-color: #eb5757 !important; /* red */
+  color: white;
+}
+
+.quiz-option-button:hover {
+  background-color: #374151; /* slate-800 */
+}
+
+.quiz-nav-button {
+  border: 2px solid var(--clr-primary);
+  color: var(--clr-primary);
+  background: transparent;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.75rem;
+  text-decoration: none !important;
+}
+
+.quiz-nav-button:hover {
+  background: #f1f5f9;
+}
+
+.quiz-next-button {
+  background: var(--clr-primary);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  text-decoration: none !important;
+}
+.quiz-next-button:hover {
+  filter: brightness(0.95);
+}
+
+.timer-pill {
+  background-color: #f1f5f9; /* soft light gray */
+  color: #0f172a;           /* dark slate */
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 0.95rem;
+}
+
+.quiz-image-box {
+  width: 100%;
+  max-width: 600px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.quiz-image-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: calc(var(--radius) - 0.25rem);
+}

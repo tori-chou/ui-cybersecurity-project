@@ -3,68 +3,72 @@
 {% block content %}
 <div class="container mt-5">
     <div class="card p-4 shadow-sm">
-        <h2 class="mb-3">Question: {{ question.question }}</h2>
-        {% if question.image %}
-        {% if question.id == 2 %}
-        <div class="text-center mb-3 cropped-container-2">
-            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow cropped-image-2"
-                style="height:400px; width:auto;">
-        </div>
-        {% elif question.id == 5 %}
-        <div class="text-center mb-3 cropped-container-5">
-            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow cropped-image-5"
-                style="height:600px; width:auto;">
-        </div>
-        {% else %}
-        <div class="text-center mb-3">
-            <img src="{{ question.image }}" alt="Question image" class="img-fluid rounded shadow"
-                style="height:400px; width:auto;">
-        </div>
-        {% endif %}
-        {% endif %}
-        <div class="d-flex gap-3 mt-3">
-            <form method="POST" class="d-flex flex-column gap-2 mt-3">
-                {% for option in question.options %}
-                {% set btn_class = "btn btn-outline-primary w-100 mb-2" %}
-                {% if answer %}
-                {% if option == question.answer %}
-                {% set btn_class = "btn btn-success w-100 mb-2" %}
-                {% elif option == answer %}
-                {% set btn_class = "btn btn-danger w-100 mb-2" %}
-                {% endif %}
-                {% endif %}
-
-                <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer
-                    %}disabled{% endif %}>
-                    {{ option }}
-                </button>
-                {% endfor %}
-            </form>
-        </div>
-        <div class="d-flex justify-content-between mt-4">
-            {% if question.id > 1 %}
-            <a href="{{ url_for('quiz', question_id=question.id - 1) }}" class="btn btn-secondary">Back</a>
-            {% else %}
-            <span></span>
-            {% endif %}
-            {% if question.id < total_questions %} <a href="{{ url_for('quiz', question_id=next_id) }}"
-                class="btn btn-primary">Next</a>
-                {% else %}
-                <a href="{{ url_for('results') }}" class="btn btn-success">See Results</a>
-                {% endif %}
-        </div>
-        <div class="mt-3 text-muted">
-            Time remaining: <span id="timer">30</span> seconds
-        </div>
-        <div id="timeoutModal" class="modal-overlay">
-            <div class="modal-box">
-                <h3>⏰ Time’s up!</h3>
-                <p>Please try to answer faster next time!</p>
-                <button onclick="closeModal()" class="btn btn-primary mt-3">OK</button>
+        <div class="row align-items-center">
+            {% if question.image %}
+            <div class="row align-items-center">
+              <!-- LEFT: image -->
+              <div class="col-md-6 text-center mb-4 mb-md-0">
+                <div class="quiz-image-box">
+                  <img src="{{ question.image }}" alt="Question image">
+                </div>
+              </div>
+          
+              <!-- RIGHT: question + buttons -->
+              <div class="col-md-6 d-flex flex-column align-items-center">
+                <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
+                <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center">
+                  {% for option in question.options %}
+                    {% set btn_class = "btn quiz-option-button" %}
+                    {% if answer %}
+                      {% if option == question.answer %}
+                        {% set btn_class = "btn quiz-option-button btn-success" %}
+                      {% elif option == answer %}
+                        {% set btn_class = "btn quiz-option-button btn-danger" %}
+                      {% endif %}
+                    {% endif %}
+                    <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer %}disabled{% endif %}>
+                      {{ option }}
+                    </button>
+                  {% endfor %}
+                </form>
+              </div>
             </div>
+          {% else %}
+            <div class="d-flex flex-column align-items-center">
+              <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
+              <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center" style="max-width: 500px;">
+                {% for option in question.options %}
+                  {% set btn_class = "btn quiz-option-button" %}
+                  {% if answer %}
+                    {% if option == question.answer %}
+                      {% set btn_class = "btn quiz-option-button btn-success" %}
+                    {% elif option == answer %}
+                      {% set btn_class = "btn quiz-option-button btn-danger" %}
+                    {% endif %}
+                  {% endif %}
+                  <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer %}disabled{% endif %}>
+                    {{ option }}
+                  </button>
+                {% endfor %}
+              </form>
+            </div>
+          {% endif %}          
         </div>
-
-    </div>
+      
+        <div class="d-flex justify-content-between align-items-center mt-5">
+          <div class="timer-pill">Time: <span id="timer">30</span>s</div>
+          <div class="d-flex gap-3">
+            {% if question.id > 1 %}
+              <a href="{{ url_for('quiz', question_id=question.id - 1) }}" class="quiz-nav-button">Back</a>
+            {% endif %}
+            {% if question.id < total_questions %}
+              <a href="{{ url_for('quiz', question_id=next_id) }}" class="quiz-next-button">Next</a>
+            {% else %}
+              <a href="{{ url_for('results') }}" class="quiz-next-button">See Results</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>      
 </div>
 
 <script>
