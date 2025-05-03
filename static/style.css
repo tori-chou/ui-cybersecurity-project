@@ -595,7 +595,8 @@ section.hero .btn-primary:hover {
 }
 
 .badge-lighter-neutral {
-  background-color: #ede9fe; /* faint soft purple (like Tailwind's purple-100) */
+  background-color: #ede9fe;
+  /* faint soft purple (like Tailwind's purple-100) */
   color: #3a1574;
   font-weight: 600;
   font-size: 0.85rem;

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="lesson-card {% if lesson.id % 2 == 0 %}reverse{% endif %}">
         {% if lesson.image %}
-            <img src="{{ lesson.image }}" alt="Lesson image">
+        <img src="{{ lesson.image }}" alt="Lesson image">
         {% endif %}
         <div class="text">
             <h3 class="mb-3">{{ lesson.title }}</h3>
@@ -12,13 +12,13 @@
 
             <div class="d-flex gap-3 mt-4">
                 {% if lesson.id > 1 %}
-                    <a href="{{ url_for('learn', lesson_id=lesson.id - 1) }}" class="btn btn-secondary">Back</a>
+                <a href="{{ url_for('learn', lesson_id=lesson.id - 1) }}" class="btn btn-secondary">Back</a>
                 {% endif %}
-                {% if lesson.id < total_lessons %}
-                    <a href="{{ url_for('learn', lesson_id=next_id) }}" class="btn btn-primary ms-auto">Next</a>
-                {% else %}
+                {% if lesson.id < total_lessons %} <a href="{{ url_for('learn', lesson_id=next_id) }}"
+                    class="btn btn-primary ms-auto">Next</a>
+                    {% else %}
                     <a href="{{ url_for('quiz', question_id=1) }}" class="btn btn-success ms-auto">Start&nbsp;Quiz</a>
-                {% endif %}
+                    {% endif %}
             </div>
         </div>
     </div>
