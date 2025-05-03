@@ -8,22 +8,30 @@
         {% if incorrect_questions %}
         <div class="list-group">
             {% for item in incorrect_questions %}
-            <div class="list-group-item">
-                <h5>Q{{ item.question_number }}: {{ item.question }}</h5>
-                <p>Your answer:
-                    {% if item.your_answer == "Timed out" %}
-                    <span class="text-warning"><strong>Timed out</strong></span>
-                    {% elif item.your_answer %}
-                    <span class="text-danger"><strong>{{ item.your_answer }}</strong></span>
-                    {% else %}
-                    <span class="text-muted">No answer</span>
+            <div class="list-group-item d-flex justify-content-between align-items-start gap-4 flex-wrap">
+                <div style="flex: 1 1 65%;">
+                    <h5>Q{{ item.question_number }}: {{ item.question }}</h5>
+                    <p>Your answer:
+                        {% if item.your_answer == "Timed out" %}
+                        <span class="text-warning"><strong>Timed out</strong></span>
+                        {% elif item.your_answer %}
+                        <span class="text-danger"><strong>{{ item.your_answer }}</strong></span>
+                        {% else %}
+                        <span class="text-muted">No answer</span>
+                        {% endif %}
+                    </p>
+                    <p>Correct answer: <strong>{{ item.correct_answer }}</strong></p>
+                    {% if item.explanation %}
+                    <p><strong>Explanation:</strong> {{ item.explanation }}</p>
                     {% endif %}
-                </p>
-                <p>Correct answer: <strong>{{ item.correct_answer }}</strong></p>
-                {% if item.explanation %}
-                <p><strong>Explanation:</strong> {{ item.explanation }}</p>
+                </div>
+            
+                {% if item.image %}
+                <div style="flex: 0 0 200px;">
+                    <img src="{{ item.image }}" alt="Phishing example" class="img-fluid rounded shadow-sm" style="max-height: 150px;">
+                </div>
                 {% endif %}
-            </div>
+            </div>            
             {% endfor %}
         </div>
         {% else %}

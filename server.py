@@ -74,7 +74,9 @@ def review():
                 'question_number': q_num,
                 'question': q['question'],
                 'your_answer': answers.get(q_num),
-                'correct_answer': q['answer']
+                'correct_answer': q['answer'],
+                'explanation': q.get('explanation', ''),
+                "image": q.get("image", None)
             })
     return render_template('review.html', incorrect_questions=incorrect)
 

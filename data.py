@@ -84,35 +84,40 @@ quiz_questions = [
         "question": "Is this phishing?",
         "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Example_bank_phishing_email.svg/1200px-Example_bank_phishing_email.svg.png",
         "options": ["Yes", "No"],
-        "answer": "Yes"
+        "answer": "Yes",
+        "explanation": "It uses a fake sender address, a misleading link, and scare tactics to trick you into revealing your personal banking information."
     },
     {
         "id": 2,
         "question": "Is this phishing?",
         "image": "https://i.postimg.cc/vHcTXPrM/Screenshot-2025-05-02-at-2-29-01-PM.png",
         "options": ["Yes", "No"],
-        "answer": "Yes"
+        "answer": "Yes",
+        "explanation": "It uses a fake sender address, a deceptive link that looks similar to Citibank's official URL, and urgent language about “suspicious activity” to trick you."
     },
     {
         "id": 3,
         "question": "Is this phishing?",
         "image": "https://miro.medium.com/v2/resize:fit:1400/1*GDyWzrS3ZjmUfmsAKdtmDQ.png",
         "options": ["Yes", "No"],
-        "answer": "No"
+        "answer": "No",
+        "explanation": "It uses a legitimate sender address (cs-reply@amazon.com), contains no urgent or threatening language, and links directly to the official Amazon website (https://www.amazon.com)."
     },
     {
         "id": 4,
         "question": "Is this phishing?",
         "image": "https://cdn.abcotvs.com/dip/images/11371439_122221-ktrk-scam-text-tn-img.jpg",
         "options": ["Yes", "No"],
-        "answer": "Yes"
+        "answer": "Yes",
+        "explanation": "It uses a suspicious link, vague language, and fake urgency to trick you into clicking."
     },
     {
         "id": 5,
         "question": "Is this phishing?",
         "image": "https://i.postimg.cc/vmLZDCs7/Screenshot-2025-05-02-at-2-31-35-PM.png",
         "options": ["Yes", "No"],
-        "answer": "No"
+        "answer": "No",
+        "explanation": "It links to https://verify.id.me, which is an official domain used by ID.me and the message is calm, not threatening or overly urgent."
     },
     {
         "id": 6,
@@ -123,7 +128,7 @@ quiz_questions = [
             "C. It involves stealing physical mail",
             "D. It can only happen on social media"
         ],
-        "answer": "B. It targets specific individuals or groups using personalized information"
+        "answer": "B. It targets specific individuals or groups using personalized information",
     },
     {
         "id": 7,
@@ -134,7 +139,7 @@ quiz_questions = [
             "C. The messages feel more believable and relevant",
             "D. It avoids using email altogether"
         ],
-        "answer": "C. The messages feel more believable and relevant"
+        "answer": "C. The messages feel more believable and relevant",
     },
     {
         "id": 8,
@@ -145,7 +150,7 @@ quiz_questions = [
             "C. A targeted attack on a high-profile individual within an organization",
             "D. A type of malware that infects smartphones"
         ],
-        "answer": "C. A targeted attack on a high-profile individual within an organization"
+        "answer": "C. A targeted attack on a high-profile individual within an organization",
     }
 ]
 
