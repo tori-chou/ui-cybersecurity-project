@@ -1,7 +1,21 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="container mt-5">
+<!-- Progress Bar -->
+<div class="container mt-3">
+    <div class="progress" style="height: 20px;">
+        <div class="progress-bar" role="progressbar"
+        style="width: {{ (question.id * 100 // total_questions) }}%" 
+             aria-valuenow="{{ question.id }}"
+             aria-valuemin="0"
+             aria-valuemax="{{ total_questions }}">
+            Question {{ question.id }} of {{ total_questions }}
+        </div>
+    </div>
+</div>
+
+<!-- Quiz Content -->
+<div class="container mt-4">
     <div class="card p-4 shadow-sm">
         <div class="row align-items-center">
             {% if question.image %}

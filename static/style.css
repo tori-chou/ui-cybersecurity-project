@@ -306,3 +306,18 @@ section.hero .btn-primary:hover{
   object-fit: contain;
   border-radius: calc(var(--radius) - 0.25rem);
 }
+
+.progress {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: #6c63ff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
