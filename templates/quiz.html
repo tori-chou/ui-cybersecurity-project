@@ -6,14 +6,12 @@
         <div class="row align-items-center">
             {% if question.image %}
             <div class="row align-items-center">
-                <!-- LEFT: image -->
                 <div class="col-md-6 text-center mb-4 mb-md-0">
                     <div class="quiz-image-box">
                         <img src="{{ question.image }}" alt="Question image">
                     </div>
                 </div>
 
-                <!-- RIGHT: question + buttons -->
                 <div class="col-md-6 d-flex flex-column align-items-center">
                     <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
                     <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center">
@@ -83,18 +81,53 @@
 <script>
     let time = 30;
     let timerExpired = false;
+    let timedOut = false;
     const timerElement = document.getElementById("timer");
 
     const countdown = setInterval(() => {
         if (time <= 0 && !timerExpired) {
             timerExpired = true;
+            timedOut = true;
             clearInterval(countdown);
+
+            // Show modal
             document.getElementById("timeoutModal").style.display = "flex";
+
+            // Disable all answer buttons
+            document.querySelectorAll(".quiz-option-button").forEach(btn => {
+                btn.setAttribute("disabled", true);
+            });
+
+            // Highlight the correct answer
+            document.querySelectorAll(".quiz-option-button").forEach(btn => {
+                if (btn.value === "{{ question.answer }}") {
+                    btn.classList.add("btn-success");
+                }
+            });
+
+            // Submit 'Timed out' as the answer to backend
+            fetch("/quiz/{{ question.id }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({ answer: "Timed out" })
+            });
+
+            // Also log timeout separately
+            fetch("/log_timeout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ question_id: "{{ question.id }}" })
+            });
         } else if (!timerExpired) {
             time--;
             timerElement.innerText = time;
         }
     }, 1000);
+
 
     function closeModal() {
         document.getElementById("timeoutModal").style.display = "none";
