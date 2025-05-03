@@ -245,7 +245,8 @@ section.hero .btn-primary:hover{
 }
 
 .quiz-option-button:hover {
-  background-color: #374151; /* slate-800 */
+  background-color: #e0d4ff; /* light purple */
+  color: #1e1b4b; /* dark navy text */
 }
 
 .quiz-nav-button {

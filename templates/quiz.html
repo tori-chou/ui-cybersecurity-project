@@ -6,79 +6,88 @@
         <div class="row align-items-center">
             {% if question.image %}
             <div class="row align-items-center">
-              <!-- LEFT: image -->
-              <div class="col-md-6 text-center mb-4 mb-md-0">
-                <div class="quiz-image-box">
-                  <img src="{{ question.image }}" alt="Question image">
+                <!-- LEFT: image -->
+                <div class="col-md-6 text-center mb-4 mb-md-0">
+                    <div class="quiz-image-box">
+                        <img src="{{ question.image }}" alt="Question image">
+                    </div>
                 </div>
-              </div>
-          
-              <!-- RIGHT: question + buttons -->
-              <div class="col-md-6 d-flex flex-column align-items-center">
+
+                <!-- RIGHT: question + buttons -->
+                <div class="col-md-6 d-flex flex-column align-items-center">
+                    <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
+                    <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center">
+                        {% for option in question.options %}
+                        {% set btn_class = "btn quiz-option-button" %}
+                        {% if answer %}
+                        {% if option == question.answer %}
+                        {% set btn_class = "btn quiz-option-button btn-success" %}
+                        {% elif option == answer %}
+                        {% set btn_class = "btn quiz-option-button btn-danger" %}
+                        {% endif %}
+                        {% endif %}
+                        <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer
+                            %}disabled{% endif %}>
+                            {{ option }}
+                        </button>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="d-flex flex-column align-items-center">
                 <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
-                <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center">
-                  {% for option in question.options %}
+                <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center" style="max-width: 500px;">
+                    {% for option in question.options %}
                     {% set btn_class = "btn quiz-option-button" %}
                     {% if answer %}
-                      {% if option == question.answer %}
-                        {% set btn_class = "btn quiz-option-button btn-success" %}
-                      {% elif option == answer %}
-                        {% set btn_class = "btn quiz-option-button btn-danger" %}
-                      {% endif %}
-                    {% endif %}
-                    <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer %}disabled{% endif %}>
-                      {{ option }}
-                    </button>
-                  {% endfor %}
-                </form>
-              </div>
-            </div>
-          {% else %}
-            <div class="d-flex flex-column align-items-center">
-              <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
-              <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center" style="max-width: 500px;">
-                {% for option in question.options %}
-                  {% set btn_class = "btn quiz-option-button" %}
-                  {% if answer %}
                     {% if option == question.answer %}
-                      {% set btn_class = "btn quiz-option-button btn-success" %}
+                    {% set btn_class = "btn quiz-option-button btn-success" %}
                     {% elif option == answer %}
-                      {% set btn_class = "btn quiz-option-button btn-danger" %}
+                    {% set btn_class = "btn quiz-option-button btn-danger" %}
                     {% endif %}
-                  {% endif %}
-                  <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer %}disabled{% endif %}>
-                    {{ option }}
-                  </button>
-                {% endfor %}
-              </form>
+                    {% endif %}
+                    <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer
+                        %}disabled{% endif %}>
+                        {{ option }}
+                    </button>
+                    {% endfor %}
+                </form>
             </div>
-          {% endif %}          
+            {% endif %}
         </div>
-      
+
         <div class="d-flex justify-content-between align-items-center mt-5">
-          <div class="timer-pill">Time: <span id="timer">30</span>s</div>
-          <div class="d-flex gap-3">
-            {% if question.id > 1 %}
-              <a href="{{ url_for('quiz', question_id=question.id - 1) }}" class="quiz-nav-button">Back</a>
-            {% endif %}
-            {% if question.id < total_questions %}
-              <a href="{{ url_for('quiz', question_id=next_id) }}" class="quiz-next-button">Next</a>
-            {% else %}
-              <a href="{{ url_for('results') }}" class="quiz-next-button">See Results</a>
-            {% endif %}
-          </div>
+            <div class="timer-pill">Time: <span id="timer">30</span>s</div>
+            <div class="d-flex gap-3">
+                {% if question.id > 1 %}
+                <a href="{{ url_for('quiz', question_id=question.id - 1) }}" class="quiz-nav-button">Back</a>
+                {% endif %}
+                {% if question.id < total_questions %} <a href="{{ url_for('quiz', question_id=next_id) }}"
+                    class="quiz-next-button">Next</a>
+                    {% else %}
+                    <a href="{{ url_for('results') }}" class="quiz-next-button">See Results</a>
+                    {% endif %}
+            </div>
         </div>
-      </div>      
+    </div>
+    <div id="timeoutModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>⏰ Time’s up!</h3>
+            <p>You ran out of time on this question.</p>
+            <button onclick="closeModal()" class="btn btn-primary mt-3">OK</button>
+        </div>
+    </div>
 </div>
 
 <script>
     let time = 30;
-    let timerExpired = false; 
+    let timerExpired = false;
     const timerElement = document.getElementById("timer");
 
     const countdown = setInterval(() => {
         if (time <= 0 && !timerExpired) {
-            timerExpired = true;  
+            timerExpired = true;
             clearInterval(countdown);
             document.getElementById("timeoutModal").style.display = "flex";
         } else if (!timerExpired) {
