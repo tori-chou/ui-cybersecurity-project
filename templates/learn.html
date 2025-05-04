@@ -1,26 +1,40 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<!-- Progress Bar -->
+<div class="container mt-3">
+    <div class="progress" style="height: 20px;">
+        <div class="progress-bar" role="progressbar" data-progress="{{ (lesson.id * 100) // total_lessons }}"
+            role="progressbar" aria-valuenow="{{ lesson.id }}" aria-valuemin="0"
+            aria-valuemax="{{ total_lessons }}">
+            {{ lesson.id }} of {{ total_lessons }}
+        </div>
+    </div>
+</div>
 <div class="container">
-    <div class="lesson-card {% if lesson.id % 2 == 0 %}reverse{% endif %}">
+    <div class="card p-4 shadow-sm lesson-card {% if lesson.id % 2 == 0 %}reverse{% endif %}">
         {% if lesson.image %}
         <img src="{{ lesson.image }}" alt="Lesson image">
         {% endif %}
         <div class="text">
             <h3 class="mb-3">{{ lesson.title }}</h3>
             <p class="fs-5">{{ lesson.content }}</p>
-
-            <div class="d-flex gap-3 mt-4">
-                {% if lesson.id > 1 %}
-                <a href="{{ url_for('learn', lesson_id=lesson.id - 1) }}" class="btn btn-secondary">Back</a>
-                {% endif %}
-                {% if lesson.id < total_lessons %} <a href="{{ url_for('learn', lesson_id=next_id) }}"
-                    class="btn btn-primary ms-auto">Next</a>
-                    {% else %}
-                    <a href="{{ url_for('quiz', question_id=1) }}" class="btn btn-success ms-auto">Start&nbsp;Quiz</a>
-                    {% endif %}
-            </div>
         </div>
     </div>
+    <div class="button-group">
+        {% if lesson.id > 1 %}
+        <a href="{{ url_for('learn', lesson_id=lesson.id - 1) }}" class="btn btn-secondary quiz-nav-button">Back</a>
+        {% endif %}
+        {% if lesson.id < total_lessons %}
+        <a href="{{ url_for('learn', lesson_id=next_id) }}" class="btn btn-primary quiz-next-button">Next</a>
+        {% else %}
+        <a href="{{ url_for('quiz', question_id=1) }}" class="btn btn-success">Start&nbsp;Quiz</a>
+        {% endif %}
+    </div>
 </div>
+<script>
+    const progressBar = document.querySelector('.progress-bar');
+    const percent = progressBar.dataset.progress;
+    progressBar.style.width = percent + '%';
+</script>
 {% endblock %}
