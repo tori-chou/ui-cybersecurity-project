@@ -8,7 +8,6 @@ app.secret_key = os.urandom(24)
 
 @app.route('/')
 def home():
-    session['start_time'] = datetime.now().isoformat()
     session['answers'] = {}
     session['lesson_views'] = {}
     return render_template('home.html')
@@ -16,11 +15,20 @@ def home():
 @app.route('/learn/<int:lesson_id>')
 def learn(lesson_id):
     if 1 <= lesson_id <= len(lessons):
-        try:
-            session['lesson_views'][str(lesson_id)] = datetime.now().isoformat()
-        except:
-            session['lesson_views'] = {}
-            session['lesson_views'][str(lesson_id)] = datetime.now().isoformat()
+        now = datetime.now()
+        views = session.get('lesson_views', {})
+        durations = session.get('lesson_durations', {})
+
+        previous_id = str(lesson_id - 1)
+        if previous_id in views:
+            start_time = datetime.fromisoformat(views[previous_id])
+            durations[previous_id] = (now - start_time).total_seconds()
+        views[str(lesson_id)] = now.isoformat()
+        session['lesson_views'] = views
+        session['lesson_durations'] = durations
+        print("Views:", session['lesson_views'])
+        print("Durations:", session['lesson_durations'])
+        
         lesson = lessons[lesson_id - 1]
         return render_template('learn.html', lesson=lesson, next_id=lesson_id + 1, total_lessons=len(lessons))
     else:
