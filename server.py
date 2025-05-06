@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-from data import lessons, quiz_questions
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, make_response
 from datetime import datetime
+from data import lessons, quiz_questions, log_time_spent
 import os
+import uuid
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -102,6 +103,31 @@ def log_timeout():
 
     print(f"⚠️ Timeout logged for Q{question_id}")
     return jsonify({'status': 'ok'})
-    
+
+@app.route('/log-time', methods=['POST'])
+def log_time():
+    data = request.get_json()
+    user_id = session.get("user_id") or session.get("new_user_id") or "anonymous"
+    time_spent = data.get('timeSpentInSeconds', 0)
+
+    log_time_spent(user_id, time_spent)
+    print(f"Time logged: {user_id} - {time_spent}s")
+
+    response = jsonify({"status": "success"})
+    if 'new_user_id' in session:
+        response.set_cookie("user_id", session['new_user_id'], max_age=60*60*24*30)
+        session['user_id'] = session.pop('new_user_id')  # finalize it
+
+    return response
+
+@app.before_request
+def assign_user_id_cookie():
+    if not request.cookies.get("user_id"):
+        # Only assign a new UUID if the cookie doesn't exist
+        new_id = str(uuid.uuid4())
+        session['new_user_id'] = new_id  # temp storage to write it later
+    else:
+        session['user_id'] = request.cookies.get("user_id")
+
 if __name__ == '__main__':
    app.run(debug = True, port=5001)

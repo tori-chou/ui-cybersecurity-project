@@ -38,6 +38,22 @@
     </div>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let startTime = Date.now();
+        const pageLabel = document.body.dataset.page;  // e.g., "lesson/1" or "quiz/3"
+        
+        window.addEventListener("beforeunload", function () {
+            const timeSpentInSeconds = Math.round((Date.now() - startTime) / 1000);
+            const blob = new Blob(
+                [JSON.stringify({ timeSpentInSeconds, page: pageLabel })],
+                { type: 'application/json' }
+            );
+            navigator.sendBeacon('/log-time', blob);
+        });
+        </script>
+        
+        
+        
 </body>
 
 </html>

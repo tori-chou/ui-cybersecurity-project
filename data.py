@@ -1,3 +1,24 @@
+import os
+import json
+
+LOG_FILE = "user_total_time.json"
+
+def log_time_spent(user_id, time_spent):
+    # Load or initialize data
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "r") as f:
+            data = json.load(f)
+    else:
+        data = {}
+
+    # Add to user's total time
+    data[user_id] = data.get(user_id, 0) + time_spent
+
+    # Save updated data
+    with open(LOG_FILE, "w") as f:
+        json.dump(data, f, indent=2)
+
+
 lessons = [
     {
         "id": 1, 
@@ -153,4 +174,5 @@ quiz_questions = [
         "answer": "C. A targeted attack on a high-profile individual within an organization",
     }
 ]
+
 
