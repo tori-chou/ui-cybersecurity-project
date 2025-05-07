@@ -68,11 +68,17 @@ lessons = [
         "content": "The aim is to make recipients feel as if they’re missing out on an urgent offer or reward, and are more likely to be less cautious."
     },
     {
-        "id": 9, 
-        "title": "Tips", 
-        "image": "",
-        "content": "Never give out personal information over email. Don't click email links from unknown sources. Monitor your online accounts regularly. Be wary of social, emotion lures. Keep your browser updated."
-    },
+    "id": 9,
+    "title": "Tips",
+    "image": "",
+    "content": [
+        "Never give out personal information over email.",
+        "Don't click email links from unknown sources.",
+        "Monitor your online accounts regularly.",
+        "Be wary of social, emotional lures.",
+        "Keep your browser updated."
+    ]
+},
     {
         "id": 10, 
         "title": "Learn about the types of phishing", 
@@ -172,6 +178,50 @@ quiz_questions = [
             "D. A type of malware that infects smartphones"
         ],
         "answer": "C. A targeted attack on a high-profile individual within an organization",
+    },
+        {
+        "id": 9,
+        "question": "Why do some phishing emails contain obvious spelling and grammar mistakes?",
+        "options": [
+            "A. Hackers are usually in a hurry",
+            "B. They want to avoid spam filters",
+            "C. Errors help them identify less cautious targets",
+            "D. It's a tactic to seem friendly"
+        ],
+        "answer": "C. Errors help them identify less cautious targets",
+    },
+    {
+        "id": 10,
+        "question": "Which file type is most suspicious when received in an unexpected email?",
+        "options": [
+            "A. .pdf",
+            "B. .docx",
+            "C. .jpg",
+            "D. .zip"
+    ],
+    "answer": "D. .zip",  
+    },
+    {
+        "id": 11,
+        "question": "Which of the following is a *common red flag* in phishing emails?",
+        "options": [
+            "A. Urgent requests for sensitive info",
+            "B. A casual greeting and personal tone",
+            "C. Perfect grammar",
+            "D. Professional logos and formatting"
+        ],
+        "answer": "A. Urgent requests for sensitive info",
+    },
+    {
+        "id": 12,
+        "question": "An email says your account will be locked in 1 hour if you don’t act now. What should you do?",
+        "options": [
+            "A. Click the link immediately",
+            "B. Stay calm and verify with the company’s official website directly",
+            "C. Forward it to friends as a warning",
+            "D. Reply and ask for more details"
+        ],
+        "answer": "B. Stay calm and verify with the company’s official website directly",
     }
 ]
 
