@@ -29,6 +29,7 @@ lessons = [
     {
         "id": 2, 
         "title": "Learn how to spot phishing", 
+        "image": "https://www.technologysolutions.net/wp-content/uploads/2023/07/Phising-Awerness-scaled-2560x1280.jpeg",
         "content": ""
     },
     {
