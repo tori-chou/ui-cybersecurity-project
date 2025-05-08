@@ -9,7 +9,7 @@
         <div class="progress-bar" role="progressbar" data-progress="{{ (question.id * 100) // total_questions }}"
             role="progressbar" aria-valuenow="{{ question.id }}" aria-valuemin="0"
             aria-valuemax="{{ total_questions }}">
-            Question {{ question.id }} of {{ total_questions }}
+            {{ question.id }} of {{ total_questions }}
         </div>
     </div>
 </div>
