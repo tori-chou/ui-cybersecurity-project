@@ -180,7 +180,7 @@ quiz_questions = [
         ],
         "answer": "C. A targeted attack on a high-profile individual within an organization",
     },
-        {
+    {
         "id": 9,
         "question": "Why do some phishing emails contain obvious spelling and grammar mistakes?",
         "options": [
@@ -199,8 +199,8 @@ quiz_questions = [
             "B. .docx",
             "C. .jpg",
             "D. .zip"
-    ],
-    "answer": "D. .zip",  
+        ],
+        "answer": "D. .zip",  
     },
     {
         "id": 11,

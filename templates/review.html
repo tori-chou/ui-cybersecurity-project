@@ -19,6 +19,8 @@
                         <span class="badge-soft-no">No</span>
                         {% elif item.your_answer == "Timed out" %}
                         <span class="badge-warning-no">Timed out</span>
+                        {% elif item.your_answer %}
+                        <span class="badge-soft-neutral">{{ item.your_answer }}</span>
                         {% else %}
                         <span class="badge-soft-neutral">No answer</span>
                         {% endif %}
