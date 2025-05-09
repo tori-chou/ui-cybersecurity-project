@@ -33,15 +33,15 @@
             
         </div>
     </div>
-    <div class="button-group">
+    <div class="d-flex justify-content-center gap-3 mt-4">
         {% if lesson.id > 1 %}
-        <a href="{{ url_for('learn', lesson_id=lesson.id - 1) }}" class="btn btn-secondary quiz-nav-button">Back</a>
+        <a href="{{ url_for('learn', lesson_id=lesson.id - 1) }}" class="btn btn-secondary">Back</a>
         {% endif %}
-        {% if lesson.id < total_lessons %}
-        <a href="{{ url_for('learn', lesson_id=next_id) }}" class="btn btn-primary quiz-next-button">Next</a>
-        {% else %}
-        <a href="{{ url_for('quiz', question_id=1) }}" class="btn btn-success">Start&nbsp;Quiz</a>
-        {% endif %}
+        {% if lesson.id < total_lessons %} <a href="{{ url_for('learn', lesson_id=next_id) }}"
+            class="btn btn-primary">Next</a>
+            {% else %}
+            <a href="{{ url_for('quiz', question_id=1) }}" class="btn btn-success">Start&nbsp;Quiz</a>
+            {% endif %}
     </div>
 </div>
 <script>
