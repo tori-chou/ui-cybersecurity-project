@@ -137,7 +137,7 @@ quiz_questions = [
         "image": "https://cdn.abcotvs.com/dip/images/11371439_122221-ktrk-scam-text-tn-img.jpg",
         "options": ["Yes", "No"],
         "answer": "Yes",
-        "explanation": "It uses a suspicious link, vague language, and fake urgency to trick you into clicking."
+        "explanation": "It uses a suspicious link (no https://), vague language, and fake urgency to trick you into clicking."
     },
     {
         "id": 5,
@@ -201,6 +201,7 @@ quiz_questions = [
             "D. .zip"
         ],
         "answer": "D. .zip",  
+        "explanation": "It is difficult to identify what files are stored within them."
     },
     {
         "id": 11,
