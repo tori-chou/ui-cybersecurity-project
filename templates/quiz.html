@@ -2,33 +2,55 @@
 
 <body data-page="quiz/{{ question.id }}">
 
-{% block content %}
-<!-- Progress Bar -->
-<div class="container mt-3">
-    <div class="progress" style="height: 20px;">
-        <div class="progress-bar" role="progressbar" data-progress="{{ (question.id * 100) // total_questions }}"
-            role="progressbar" aria-valuenow="{{ question.id }}" aria-valuemin="0"
-            aria-valuemax="{{ total_questions }}">
-            {{ question.id }} of {{ total_questions }}
+    {% block content %}
+    <!-- Progress Bar -->
+    <div class="container mt-3">
+        <div class="progress" style="height: 20px;">
+            <div class="progress-bar" role="progressbar" data-progress="{{ (question.id * 100) // total_questions }}"
+                role="progressbar" aria-valuenow="{{ question.id }}" aria-valuemin="0"
+                aria-valuemax="{{ total_questions }}">
+                {{ question.id }} of {{ total_questions }}
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Quiz Content -->
-<div class="container mt-4">
-    <div class="card p-4 shadow-sm">
-        <div class="row align-items-center">
-            {% if question.image %}
+    <!-- Quiz Content -->
+    <div class="container mt-4">
+        <div class="card p-4 shadow-sm">
             <div class="row align-items-center">
-                <div class="col-md-6 text-center mb-4 mb-md-0">
-                    <div class="quiz-image-box">
-                        <img src="{{ question.image }}" alt="Question image">
+                {% if question.image %}
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center mb-4 mb-md-0">
+                        <div class="quiz-image-box">
+                            <img src="{{ question.image }}" alt="Question image">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 d-flex flex-column align-items-center">
+                        <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
+                        <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center">
+                            {% for option in question.options %}
+                            {% set btn_class = "btn quiz-option-button" %}
+                            {% if answer %}
+                            {% if option == question.answer %}
+                            {% set btn_class = "btn quiz-option-button btn-success" %}
+                            {% elif option == answer %}
+                            {% set btn_class = "btn quiz-option-button btn-danger" %}
+                            {% endif %}
+                            {% endif %}
+                            <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if
+                                answer %}disabled{% endif %}>
+                                {{ option }}
+                            </button>
+                            {% endfor %}
+                        </form>
                     </div>
                 </div>
-
-                <div class="col-md-6 d-flex flex-column align-items-center">
+                {% else %}
+                <div class="d-flex flex-column align-items-center">
                     <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
-                    <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center">
+                    <form id="quiz-form" method="POST" class="d-flex flex-column gap-3 w-100 align-items-center"
+                        style="max-width: 500px;">
                         {% for option in question.options %}
                         {% set btn_class = "btn quiz-option-button" %}
                         {% if answer %}
@@ -45,58 +67,38 @@
                         {% endfor %}
                     </form>
                 </div>
-            </div>
-            {% else %}
-            <div class="d-flex flex-column align-items-center">
-                <h2 class="fw-bold mb-4 text-center">{{ question.question }}</h2>
-                <form method="POST" class="d-flex flex-column gap-3 w-100 align-items-center" style="max-width: 500px;">
-                    {% for option in question.options %}
-                    {% set btn_class = "btn quiz-option-button" %}
-                    {% if answer %}
-                    {% if option == question.answer %}
-                    {% set btn_class = "btn quiz-option-button btn-success" %}
-                    {% elif option == answer %}
-                    {% set btn_class = "btn quiz-option-button btn-danger" %}
-                    {% endif %}
-                    {% endif %}
-                    <button type="submit" name="answer" value="{{ option }}" class="{{ btn_class }}" {% if answer
-                        %}disabled{% endif %}>
-                        {{ option }}
-                    </button>
-                    {% endfor %}
-                </form>
-            </div>
-            {% endif %}
-        </div>
-
-        <div class="d-flex justify-content-between align-items-center mt-5">
-            <div class="timer-pill">Time: <span id="timer">30</span>s</div>
-            <div class="d-flex gap-3">
-                {% if question.id > 1 %}
-                <a href="{{ url_for('quiz', question_id=question.id - 1) }}" class="quiz-nav-button">Back</a>
                 {% endif %}
-                {% if question.id < total_questions %} <a href="{{ url_for('quiz', question_id=next_id) }}"
-                    class="quiz-next-button">Next</a>
-                    {% else %}
-                    <a href="{{ url_for('results') }}" class="quiz-next-button">See Results</a>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-5">
+                <div class="timer-pill">Time: <span id="timer">30</span>s</div>
+                <div class="d-flex gap-3">
+                    {% if question.id > 1 %}
+                    <a href="{{ url_for('quiz', question_id=question.id - 1) }}" class="quiz-nav-button">Back</a>
                     {% endif %}
+                    {% if question.id < total_questions %} <a href="{{ url_for('quiz', question_id=next_id) }}"
+                        class="quiz-next-button">Next</a>
+                        {% else %}
+                        <a href="{{ url_for('results') }}" class="quiz-next-button">See Results</a>
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+        <div id="timeoutModal" class="modal-overlay">
+            <div class="modal-box">
+                <h3>⏰ Time’s up!</h3>
+                <p>You ran out of time on this question.</p>
+                <button onclick="closeModal()" class="btn btn-primary mt-3">OK</button>
             </div>
         </div>
     </div>
-    <div id="timeoutModal" class="modal-overlay">
-        <div class="modal-box">
-            <h3>⏰ Time’s up!</h3>
-            <p>You ran out of time on this question.</p>
-            <button onclick="closeModal()" class="btn btn-primary mt-3">OK</button>
-        </div>
-    </div>
-</div>
 
-<script>
+    <script>
     let time = 30;
     let timerExpired = false;
     let timedOut = false;
     const timerElement = document.getElementById("timer");
+
     const progressBar = document.querySelector('.progress-bar');
     const percent = progressBar.dataset.progress;
     progressBar.style.width = percent + '%';
@@ -107,36 +109,25 @@
             timedOut = true;
             clearInterval(countdown);
 
-            // Show modal
             document.getElementById("timeoutModal").style.display = "flex";
 
-            // Disable all answer buttons
-            document.querySelectorAll(".quiz-option-button").forEach(btn => {
-                btn.setAttribute("disabled", true);
-            });
+            document.querySelectorAll(".quiz-option-button").forEach(btn => btn.disabled = true);
 
-            // Highlight the correct answer
             document.querySelectorAll(".quiz-option-button").forEach(btn => {
                 if (btn.value === "{{ question.answer }}") {
                     btn.classList.add("btn-success");
                 }
             });
 
-            // Submit 'Timed out' as the answer to backend
             fetch("/quiz/{{ question.id }}", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
                 body: new URLSearchParams({ answer: "Timed out" })
             });
 
-            // Also log timeout separately
             fetch("/log_timeout", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ question_id: "{{ question.id }}" })
             });
         } else if (!timerExpired) {
@@ -146,9 +137,45 @@
     }, 1000);
 
 
+    // ⏸️ Pause the timer & submit answer without reload
+    document.querySelectorAll(".quiz-option-button").forEach(btn => {
+        btn.addEventListener("click", function (event) {
+            event.preventDefault(); // stop default form submission
+            clearInterval(countdown);
+            timerExpired = true;
+
+            const selectedAnswer = btn.value;
+
+            // Freeze time display
+            timerElement.innerText = time;
+
+            // Disable all buttons
+            document.querySelectorAll(".quiz-option-button").forEach(b => b.disabled = true);
+
+            // Mark correct/incorrect buttons
+            document.querySelectorAll(".quiz-option-button").forEach(b => {
+                if (b.value === "{{ question.answer }}") {
+                    b.classList.add("btn-success");
+                } else if (b.value === selectedAnswer) {
+                    b.classList.add("btn-danger");
+                }
+            });
+
+            // Send answer to backend
+            const formData = new URLSearchParams();
+            formData.append("answer", selectedAnswer);
+
+            fetch("/quiz/{{ question.id }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: formData
+            });
+        });
+    });
+
     function closeModal() {
         document.getElementById("timeoutModal").style.display = "none";
     }
 </script>
 
-{% endblock %}
+    {% endblock %}
