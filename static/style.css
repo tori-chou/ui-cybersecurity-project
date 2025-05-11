@@ -237,6 +237,30 @@ section.hero {
   }
 }
 
+.tip-cards-container {
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tip-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  margin: 0.5rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  font-weight: 400;
+  font-size: 20px;
+  color: #0f172a;
+}
+
+@media (max-width: 600px) {
+  .tip-card {
+    flex: 1 1 100%;
+  }
+}
+
 section.hero .btn-primary {
   background: #ffffff;
   color: var(--clr-primary);

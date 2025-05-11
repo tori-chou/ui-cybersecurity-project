@@ -71,7 +71,7 @@ lessons = [
     {
     "id": 9,
     "title": "Tips",
-    "image": "",
+    "image": "https://www.creativefabrica.com/wp-content/uploads/2022/06/13/Tips-Outline-Icon-Graphics-32281693-1.jpg",
     "content": [
         "Never give out personal information over email.",
         "Don't click email links from unknown sources.",
