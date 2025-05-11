@@ -101,7 +101,7 @@ lessons = [
     {
         "id": 13, 
         "title": "Types of Phishing - Smishing", 
-        "image": "https://timely-benefit-e63d540317.media.strapiapp.com/Smishing_Example_Tax_Refund_Offer_ab235504a2.jpg",
+        "image": "https://i.postimg.cc/dVww8xcv/img.png",
         "content": "Phishing also happens over text messages. Be cautious of unknown senders."
     }
 ]
